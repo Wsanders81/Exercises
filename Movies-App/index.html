@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Movies App!</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <header id="title">
+            <h1 id="title">MOVIE APP!</h1>
+        </header>
+
+        
+        <div id="form-div">
+            <form action="submit" id="movie-form">
+                <input type="text" id="movie" placeholder="Enter Title Here"/>
+                <input type="number" id="rating" placeholder="Rating" min="0" max="10"/>
+                <button id="submit" type="submit">Submit</button>
+            </form>
+        </div>
+        <h2 id="movies">Stored Movies</h2>
+        <div id="stored-movies">
+            <ul id="list">
+
+            </ul>
+        </div>
+
+            <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+        <script src="app.js" async defer></script>
+    </body>
+</html>
