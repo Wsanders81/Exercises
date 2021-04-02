@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Giphy Party!</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+  integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container-fluid text-center text-warning">
+  <h2 class="display-5">GIPHY PARTY!</h2>
+</div>
+  <div class="container">
+  <form action="" id="gif-form">
+    <div class="input-group">
+      <input type="text" class="form-control text-center" placeholder="Enter a search item" aria-label="Gif search field with two button add ons" id="button-addon2">
+      <button class="btn btn-dark " type="submit">Search Giphy!</button>
+      <button class="btn btn-danger " type="button" id="remove">Remove Images</button>
+    </div>
+</div>
+  </form>
+</div>
+
+<div class="container">
+  <ul id="gif-storage">
+    
+
+  </ul>
+</div>
+
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.js"></script>
+<script src="app.js"></script>
+</body>
+
+</html>
