@@ -1,0 +1,17 @@
+body {
+    background-color: rgb(108, 173, 9);
+    text-align: center;
+}
+
+button {
+    margin-top: 4rem; 
+    margin-bottom: 3rem; 
+}
+
+img {
+    width: 5rem; 
+    height: auto; 
+    margin: 5px; 
+    
+}
+
