@@ -28,11 +28,11 @@ function generateStoryMarkup(story) {
   const unfavoriteStar = "far"
   const $favoriteStar = "fas"
   let star; 
-  if(isFavorited){
-    star = $favoriteStar; 
-  }
-  else star = unfavoriteStar; 
-
+  // if(isFavorited){
+  //   star = $favoriteStar; 
+  // }
+  // else star = unfavoriteStar; 
+  isFavorited ? star = $favoriteStar : star = unfavoriteStar; 
   return $(`
       <li id="${story.storyId}">
       <i class="${star} fa-star"></i>

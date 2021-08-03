@@ -28,3 +28,5 @@ $("#submit").on("click", function (e) {
 $('ul').on('click', '#remove', function(){
     $(this).parent().remove()
 })
+
+

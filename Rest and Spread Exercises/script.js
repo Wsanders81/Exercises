@@ -1,4 +1,4 @@
-/Refactor
+//Refactor
 const filterOutOdds = (...nums) => nums.filter((num) => num % 2 === 0); //
 // console.log(filterOutOdds(1,2,3,7,9,12,16))
 //Find min

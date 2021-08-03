@@ -54,3 +54,5 @@ class Garage {
 }
 
 let garage = new Garage(2);
+
+

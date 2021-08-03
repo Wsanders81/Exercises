@@ -5,8 +5,8 @@
  * board fills (tie)
  */
 
-let WIDTH = 7;
-let HEIGHT = 6;
+let WIDTH = 9;
+let HEIGHT = 8;
 let gameWon = false;
 let currPlayer = 1; // active player: 1 or 2
 let board = []; // array of rows, each row is array of cells  (board[y][x])
@@ -25,6 +25,7 @@ const pTwoSection = document.getElementById('player-2');
 function makeBoard() {
   // TODO: set "board" to empty HEIGHT x WIDTH matrix array
   //referenced from Stack Overflow
+  //Create a 2D array 
   for (let i = 0; i < HEIGHT; i++) {
     board.push(Array.from({ length: WIDTH }));
   }
@@ -74,11 +75,12 @@ function makeHtmlBoard() {
 
 function findSpotForCol(x) {
   // TODO: write the real version of this, rather than always returning 0
+  //loop through columns backwards or else you would get the top of the column every time
   for (let i = HEIGHT - 1; i >= 0; i--) {
     if (board[i][x] === undefined) {
       return i;
     }
-  }
+  }// look back at this one. 
   return null;
 }
 
@@ -120,7 +122,7 @@ resetButton.addEventListener("click", function (e) {
 
 function handleClick(evt) {
   const top = document.getElementById("top-column");
-  if (gameWon === true) {
+  if (checkForWin()) {
     top.removeEventListener("click", handleClick, true);
   }
 
@@ -149,10 +151,20 @@ function handleClick(evt) {
   // TODO: check if all cells in board are filled; if so call, call endGame
   //** I tried a different approach with this one by checking if all elements in the board array were numbers but it kept coming back as false so I went with the solution answer.:(  */
 
-  if (board.every((row) => row.every((cell) => cell))) {
+  // if (board.every((row) => row.every((cell) => cell))) {
+  //   return endGame("It's a TIE!");
+  // }
+  let hasGameEnded = true;
+  for (let y = 0; y < HEIGHT; y++) {
+    for (let x = 0; x < WIDTH; x++) {
+      if(board[y][x] === undefined) {
+        hasGameEnded = false;
+      }
+    }
+  }
+  if(hasGameEnded === true){
     return endGame("It's a TIE!");
   }
-
   // switch players
   // TODO: switch currPlayer 1 <-> 2
   
@@ -234,3 +246,14 @@ function checkForWin() {
 
 makeBoard();
 makeHtmlBoard();
+// let hasGameEnded = true;
+// for (let y = 0; y < HEIGHT; y++) {
+//   for (let x = 0; x < WIDTH; x++) {
+//     if(board[y][x] === undefined) {
+//       hasGameEnded = false;
+//     }
+//   }
+// }
+// if(hasGameEnded === true){
+//   return endGame("It's a TIE!");
+// }

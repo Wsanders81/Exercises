@@ -51,7 +51,7 @@ class Game {
     
     let top = document.createElement("tr");
     //Store reference to handleClick bound function to remove event listener later. 
-    this.handleGameClick = this.handleClick.bind(this);
+    // this.handleGameClick = this.handleClick.bind(this);
     top.setAttribute("id", "column-top");
     top.addEventListener("click", this.handleClick);
     // resetButton.addEventListener("click", this.reset(),false)
@@ -102,7 +102,7 @@ class Game {
   handleClick=(evt) =>{
     const top = document.getElementById("top-column");
     if(this.gameWon === true) {
-      top.removeEventListener("click", this.handleGameClick) 
+      top.removeEventListener("click", this.handleClick) 
     }
     
   
