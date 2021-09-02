@@ -7,11 +7,13 @@ const {
 } = require("../expressError");
 const db = require("../db.js");
 const User = require("./user.js");
+const Job = require("../models/job");
 const {
   commonBeforeAll,
   commonBeforeEach,
   commonAfterEach,
   commonAfterAll,
+  testJobIds,
 } = require("./_testCommon");
 
 beforeAll(commonBeforeAll);
@@ -28,7 +30,7 @@ describe("authenticate", function () {
       username: "u1",
       firstName: "U1F",
       lastName: "U1L",
-      email: "u1@email.com",
+      email: "user1@user.com",
       isAdmin: false,
     });
   });
@@ -112,18 +114,25 @@ describe("findAll", function () {
     const users = await User.findAll();
     expect(users).toEqual([
       {
-        username: "u1",
+        email: "user1@user.com",
         firstName: "U1F",
-        lastName: "U1L",
-        email: "u1@email.com",
         isAdmin: false,
+        lastName: "U1L",
+        username: "u1",
       },
       {
-        username: "u2",
+        email: "user2@user.com",
         firstName: "U2F",
-        lastName: "U2L",
-        email: "u2@email.com",
         isAdmin: false,
+        lastName: "U2L",
+        username: "u2",
+      },
+      {
+        email: "user3@user.com",
+        firstName: "U3F",
+        isAdmin: false,
+        lastName: "U3L",
+        username: "u3",
       },
     ]);
   });
@@ -138,7 +147,7 @@ describe("get", function () {
       username: "u1",
       firstName: "U1F",
       lastName: "U1L",
-      email: "u1@email.com",
+      email: "user1@user.com",
       isAdmin: false,
     });
   });
@@ -179,7 +188,7 @@ describe("update", function () {
       username: "u1",
       firstName: "U1F",
       lastName: "U1L",
-      email: "u1@email.com",
+      email: "user1@user.com",
       isAdmin: false,
     });
     const found = await db.query("SELECT * FROM users WHERE username = 'u1'");
@@ -214,8 +223,7 @@ describe("update", function () {
 describe("remove", function () {
   test("works", async function () {
     await User.remove("u1");
-    const res = await db.query(
-        "SELECT * FROM users WHERE username='u1'");
+    const res = await db.query("SELECT * FROM users WHERE username='u1'");
     expect(res.rows.length).toEqual(0);
   });
 
@@ -227,4 +235,40 @@ describe("remove", function () {
       expect(err instanceof NotFoundError).toBeTruthy();
     }
   });
+});
+
+// *********************************** apply
+
+describe("apply", () => {
+  const newJob = {
+    title: "test",
+    salary: 1,
+    equity: 0,
+    company_handle: "c1",
+  };
+  test("Applies user to job", async () => {
+    const jobRes = await Job.create(newJob);
+    const id = jobRes.id;
+    await User.apply("u1", id);
+    const res = await db.query(
+      `
+        SELECT * FROM applications WHERE job_id =$1`,
+      [jobRes.id]
+    );
+    expect(res.rows).toEqual([{ job_id: expect.any(Number), username: "u1" }]);
+  });
+  test("throws error if no job found", async () => {
+    try {
+      let job = await User.apply("u1", 0)
+    } catch(e) {
+      expect(e instanceof NotFoundError).toBeTruthy()
+    }
+  })
+  test("throws error if no user found", async () => {
+    try {
+      let job = await User.apply("wrong", testJobIds[0])
+    } catch(e) {
+      expect(e instanceof NotFoundError).toBeTruthy()
+    }
+  })
 });

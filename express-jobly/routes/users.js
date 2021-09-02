@@ -45,6 +45,23 @@ router.post("/", ensureAdmin, async function (req, res, next) {
 });
 
 
+
+// * POST - User applications
+// * Applies user to specified job and saves to db
+// * Throws error if user or job don't exist
+
+router.post("/:username/jobs/:id", ensureAdminOrCorrectUser, async (req, res, next) => {
+  try {
+    const id = +req.params.id
+    const username = req.params.username
+    await User.apply(username, id)
+    return res.json({ applied : id})
+  } catch(e) {
+    return next(e)
+  }
+})
+
+
 /*
  * GET / => { users: [ {username, firstName, lastName, email }, ... ] }
  *
