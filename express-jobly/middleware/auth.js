@@ -4,7 +4,7 @@
 
 const jwt = require("jsonwebtoken");
 const { SECRET_KEY } = require("../config");
-const { UnauthorizedError } = require("../expressError");
+const { UnauthorizedError, ForbiddenError } = require("../expressError");
 
 
 /*
@@ -47,7 +47,7 @@ function ensureLoggedIn(req, res, next) {
 function ensureAdmin(req, res, next) {
   try {
     if(!res.locals.user || !res.locals.user.isAdmin) {
-      throw new UnauthorizedError()
+      throw new ForbiddenError()
     }
     return next(); 
   } catch(e) {
